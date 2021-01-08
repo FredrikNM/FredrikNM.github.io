@@ -1,1 +1,1 @@
-![My github website](https://fredriknm.github.io/)
+![My github website](https://www.fredriknm.github.io/)
