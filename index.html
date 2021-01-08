@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 
+
 <body>
 	<table>
 		<tr>
@@ -13,15 +14,15 @@
 		</tr>
 		<tr>
 			<td>Theta 1</td>
-			<td><input id="theta1" type="range" min ="0" max="6.28318530718 * 100" value="0" /></td>
+			<td><input id="theta1" type="range" min ="0" max="628" value="100" /></td>
 		</tr>
 		<tr>
 			<td>Theta 2</td>
-			<td><input id="theta2" type="range" min ="0" max="6.28318530718 * 100" value="0" /></td>
+			<td><input id="theta2" type="range" min ="0" max="628" value="0" /></td>
 		</tr>
 
 
-
+<!-- 6.28318530718 * 100 -->
 
 	</table>
 
@@ -61,8 +62,6 @@
 		})
 
 
-
-
 		document.body.appendChild(canvas)
 
 		canvas.width = 500
@@ -71,16 +70,15 @@
 		function draw (x, y)
 		{
 
+			console.log("start")
 
 			context.clearRect(0, 0, canvas.width, canvas.height)
 
 			for (i = 0; i < 1000*4; i++)
 			{
 
-				x_i = x[i]* eigen1.value/100
-				y_i = y[i]* eigen2.value/100
-				x_i = x_i * Math.cos(theta1.value/100) + y_i * (-Math.sin(theta2.value/100))
-				y_i = x_i * Math.sin(theta1.value/100) + y_i * Math.cos(theta2.value/100)
+				x_i = ( x[i] * Math.cos(theta1.value/100) + y[i] * (-Math.sin(theta1.value/100)) ) * eigen1.value/100
+				y_i = ( x[i] * Math.sin(theta2.value/100) + y[i] * Math.cos(theta2.value/100) ) * eigen2.value/100
 
 				context.beginPath()
 				context.fillStyle = "Black";
@@ -90,9 +88,11 @@
 				context.fillStyle = "Red";
 				context.rect(200 + x[i] * 50, 200 + y[i] * 50, 4, 4)
 				context.fill()
-
+				// console.log(x[i], y[i], x_i)
 
 			}
+
+
 		}
 
 
@@ -110,9 +110,9 @@
 			}
 
 			var x_invers = x_first_quadrant.map(function(x) { return x * -1; });
-			x_first_quadrant = x_first_quadrant.concat(x_first_quadrant, x_invers, x_invers)
+			x_first_quadrant = x_first_quadrant.concat(x_invers, x_invers, x_first_quadrant)
 			var y_invers = y_first_quadrant.map(function(x) { return x * -1; });
-			y_first_quadrant = y_first_quadrant.concat(y_invers, y_invers, y_first_quadrant)
+			y_first_quadrant = y_first_quadrant.concat(y_first_quadrant, y_invers, y_invers)
 
 
 			return [x_first_quadrant, y_first_quadrant]
@@ -125,5 +125,7 @@
 
 	</script>
 </body>
+
+
 
 </html>
