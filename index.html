@@ -1,7 +1,129 @@
 <!DOCTYPE html>
 <html>
+
 <body>
-<h1>Hello World</h1>
-<p>I'm hosted with GitHub Pages.</p>
+	<table>
+		<tr>
+			<td>Eigenvalue 1</td>
+			<td><input id="eigen1" type="range" min ="0" max="300" value="100" /></td>
+		</tr>
+		<tr>
+			<td>Eigenvalue 2</td>
+			<td><input id="eigen2" type="range" min ="0" max="300" value="100" /></td>
+		</tr>
+		<tr>
+			<td>Theta 1</td>
+			<td><input id="theta1" type="range" min ="0" max="6.28318530718 * 100" value="0" /></td>
+		</tr>
+		<tr>
+			<td>Theta 2</td>
+			<td><input id="theta2" type="range" min ="0" max="6.28318530718 * 100" value="0" /></td>
+		</tr>
+
+
+
+
+	</table>
+
+	<script>
+		var canvas = document.createElement('canvas')
+		var context = canvas.getContext('2d')
+		var x = 0
+		var y = 0
+
+
+		// Eigenvalues
+		var eigen1 = document.getElementById('eigen1')
+		eigen1.addEventListener('input', function()
+		{
+			draw(x, y)
+		})
+
+		var eigen2 = document.getElementById('eigen2')
+		eigen2.addEventListener('input', function()
+		{
+			draw(x, y)
+		})
+
+		// Theta for eigenvectors
+
+		var theta1 = document.getElementById('theta1')
+		theta1.addEventListener('input', function()
+		{
+			draw(x, y)
+			// console.log(theta1)
+		})
+
+		var theta2 = document.getElementById('theta2')
+		theta2.addEventListener('input', function()
+		{
+			draw(x, y)
+		})
+
+
+
+
+		document.body.appendChild(canvas)
+
+		canvas.width = 500
+		canvas.height = 500
+
+		function draw (x, y)
+		{
+
+
+			context.clearRect(0, 0, canvas.width, canvas.height)
+
+			for (i = 0; i < 1000*4; i++)
+			{
+
+				x_i = x[i]* eigen1.value/100
+				y_i = y[i]* eigen2.value/100
+				x_i = x_i * Math.cos(theta1.value/100) + y_i * (-Math.sin(theta2.value/100))
+				y_i = x_i * Math.sin(theta1.value/100) + y_i * Math.cos(theta2.value/100)
+
+				context.beginPath()
+				context.fillStyle = "Black";
+				context.rect(200 + x_i * 50, 200 + y_i * 50, 4, 4)
+				context.fill()
+				// context.restore();
+				context.fillStyle = "Red";
+				context.rect(200 + x[i] * 50, 200 + y[i] * 50, 4, 4)
+				context.fill()
+
+
+			}
+		}
+
+
+
+		function circle(points)
+		{
+
+			var x_first_quadrant = []	// storing x values
+			var y_first_quadrant = []
+
+			for (i = 0; i < points; i++)
+			{
+				x_first_quadrant.push( i / (points - 1) )		// normalizing to get a unit circle
+				y_first_quadrant.push( Math.sqrt(1 - Math.pow(x_first_quadrant[i], 2) ) )				
+			}
+
+			var x_invers = x_first_quadrant.map(function(x) { return x * -1; });
+			x_first_quadrant = x_first_quadrant.concat(x_first_quadrant, x_invers, x_invers)
+			var y_invers = y_first_quadrant.map(function(x) { return x * -1; });
+			y_first_quadrant = y_first_quadrant.concat(y_invers, y_invers, y_first_quadrant)
+
+
+			return [x_first_quadrant, y_first_quadrant]
+		}
+
+		var circle_points = circle(1000)
+		x = circle_points[0]
+		y = circle_points[1]
+		draw(x, y)
+
+	</script>
 </body>
+
 </html>
