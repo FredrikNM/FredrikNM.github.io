@@ -14,10 +14,8 @@
 		</tr>
 		<tr>
 			<td>Theta 1</td>
-			<td><input id="theta1" type="range" min ="0" max="628" value="0" /></td>
+			<td><input id="theta1" type="range" min ="0" max="628.318530718" value="0" /></td>
 		</tr>
-
-
 	</table>
 
 	<script>
@@ -49,8 +47,6 @@
 			// console.log(theta1)
 		})
 
-
-
 		document.body.appendChild(canvas)
 
 		canvas.width = 500
@@ -59,32 +55,27 @@
 		function draw (x, y)
 		{
 
-			console.log("start")
-
 			context.clearRect(0, 0, canvas.width, canvas.height)
 
 			for (i = 0; i < 1000*4; i++)
 			{
 
-				x_i = ( x[i] * Math.cos(theta1.value/100) + y[i] * (-Math.sin(theta1.value/100)) ) * eigen1.value/100
-				y_i = ( x[i] * Math.sin(theta2.value/100) + y[i] * Math.cos(theta2.value/100) ) * eigen2.value/100
+				x_i = ( x[i] * Math.cos(theta1.value/100) + y[i] * -Math.sin(theta1.value/100) ) * eigen1.value/100
+				y_i = ( x[i] * Math.sin(theta1.value/100) + y[i] * Math.cos(theta1.value/100) ) * eigen2.value/100
 
 				context.beginPath()
 				context.fillStyle = "Black";
-				context.rect(200 + x_i * 50, 200 + y_i * 50, 4, 4)
+				context.rect(250 + x_i * 50, 250 + y_i * 50, 4, 4)
 				context.fill()
 				// context.restore();
 				context.fillStyle = "Red";
-				context.rect(200 + x[i] * 50, 200 + y[i] * 50, 4, 4)
+				context.rect(250 + x[i] * 50, 250 + y[i] * 50, 4, 4)
 				context.fill()
-				// console.log(x[i], y[i], x_i)
 
 			}
 
 
 		}
-
-
 
 
 		function square(points)
@@ -111,8 +102,6 @@
 		}
 
 
-
-		// var circle_points = circle(1000)
 		var square = square(1000)
 		x = square[0]
 		y = square[1]
@@ -120,6 +109,7 @@
 
 	</script>
 </body>
+
 
 
 
