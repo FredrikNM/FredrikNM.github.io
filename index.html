@@ -63,14 +63,13 @@
 				x_i = ( x[i] * Math.cos(theta1.value/100) + y[i] * -Math.sin(theta1.value/100) ) * eigen1.value/100
 				y_i = ( x[i] * Math.sin(theta1.value/100) + y[i] * Math.cos(theta1.value/100) ) * eigen2.value/100
 
+
 				context.beginPath()
 				context.fillStyle = "Black";
-				context.rect(250 + x_i * 50, 250 + y_i * 50, 4, 4)
-				context.fill()
-				// context.restore();
+				context.fillRect(250 + x_i * 50, 250 + y_i * 50, 4, 4)
 				context.fillStyle = "Red";
-				context.rect(250 + x[i] * 50, 250 + y[i] * 50, 4, 4)
-				context.fill()
+				context.fillRect(250 + x[i] * 50, 250 + y[i] * 50, 4, 4)
+
 
 			}
 
