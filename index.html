@@ -3,6 +3,7 @@
 
 
 
+
 <head>
   <style>
     body {
@@ -87,6 +88,18 @@
       <td id="eigenDisplay2">1</td>
     </tr>
   </table>
+  <h2 style="width:30%;margin-left:600px;margin-top:-99px;max-width:100px;">Eigenvectors</h2>
+  <table class="matrix" style="width:30%;margin-left:600px;margin-top:0px;max-width:100px;">
+    <tr>
+      <td>Cos<td id="vectorDisplay1">0</td>
+      <td>-Sin<td id="vectorDisplay2">0</td>
+    </tr>
+    <tr>
+      <td>Sin<td id="vectorDisplay3">0</td>
+      <td>Cos<td id="vectorDisplay4">0</td>
+    </tr>
+  </table>
+
   <script>
     var canvas = document.createElement('canvas')
     var context = canvas.getContext('2d')
@@ -94,6 +107,12 @@
     var y = 0
     var eigenDisplay1 = document.getElementById('eigenDisplay1')
     var eigenDisplay2 = document.getElementById('eigenDisplay2')
+    var vectorDisplay1 = document.getElementById('vectorDisplay1')
+    var vectorDisplay2 = document.getElementById('vectorDisplay2')
+    var vectorDisplay3 = document.getElementById('vectorDisplay3')
+    var vectorDisplay4 = document.getElementById('vectorDisplay4')
+
+
     // Eigenvalues
     var eigen1 = document.getElementById('eigen1')
     eigen1.addEventListener('input', function()
@@ -112,12 +131,17 @@
       draw(x, y)
     })
     document.body.appendChild(canvas)
-    canvas.width = 500
+    canvas.width = 1000
     canvas.height = 500
     function draw (x, y)
     {
       eigenDisplay1.textContent = eigen1.value/100
       eigenDisplay2.textContent = eigen2.value/100
+      vectorDisplay1.textContent = theta1.value/100
+      vectorDisplay2.textContent = theta1.value/100
+      vectorDisplay3.textContent = theta1.value/100
+      vectorDisplay4.textContent = theta1.value/100
+
       context.clearRect(0, 0, canvas.width, canvas.height)
       for (i = 0; i < 1000*4; i++)
       {
@@ -125,9 +149,9 @@
         y_i = ( x[i] * Math.sin(theta1.value/100) + y[i] * Math.cos(theta1.value/100) ) * eigen2.value/100
         context.beginPath()
         context.fillStyle = "Black";
-        context.fillRect(250 + x_i * 50, 250 + y_i * 50, 4, 4)
+        context.fillRect(400 + x_i * 50, 250 + y_i * 50, 4, 4)
         context.fillStyle = "Red";
-        context.fillRect(250 + x[i] * 50, 250 + y[i] * 50, 4, 4)
+        context.fillRect(400 + x[i] * 50, 250 + y[i] * 50, 4, 4)
       }
     }
     function square(points)
@@ -153,6 +177,7 @@
     draw(x, y)
   </script>
 </body>
+
 
 
 
