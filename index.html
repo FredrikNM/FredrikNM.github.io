@@ -16,13 +16,7 @@
 			<td>Theta 1</td>
 			<td><input id="theta1" type="range" min ="0" max="628" value="0" /></td>
 		</tr>
-		<tr>
-			<td>Theta 2</td>
-			<td><input id="theta2" type="range" min ="0" max="628" value="0" /></td>
-		</tr>
 
-
-<!-- 6.28318530718 * 100 -->
 
 	</table>
 
@@ -55,11 +49,6 @@
 			// console.log(theta1)
 		})
 
-		var theta2 = document.getElementById('theta2')
-		theta2.addEventListener('input', function()
-		{
-			draw(x, y)
-		})
 
 
 		document.body.appendChild(canvas)
@@ -97,7 +86,8 @@
 
 
 
-		function circle(points)
+
+		function square(points)
 		{
 
 			var x_first_quadrant = []	// storing x values
@@ -106,21 +96,26 @@
 			for (i = 0; i < points; i++)
 			{
 				x_first_quadrant.push( i / (points - 1) )		// normalizing to get a unit circle
-				y_first_quadrant.push( Math.sqrt(1 - Math.pow(x_first_quadrant[i], 2) ) )				
+				y_first_quadrant.push( i / (points - 1) )				
 			}
 
-			var x_invers = x_first_quadrant.map(function(x) { return x * -1; });
-			x_first_quadrant = x_first_quadrant.concat(x_invers, x_invers, x_first_quadrant)
-			var y_invers = y_first_quadrant.map(function(x) { return x * -1; });
-			y_first_quadrant = y_first_quadrant.concat(y_first_quadrant, y_invers, y_invers)
+			var x_0 = x_first_quadrant.map(function(x) { return 0; });
+			var x_1 = x_first_quadrant.map(function(x) { return 1; });
+			x_first_quadrant = x_first_quadrant.concat(x_1, x_first_quadrant, x_0)
+			var y_0 = y_first_quadrant.map(function(x) { return 0; });
+			var y_1 = y_first_quadrant.map(function(x) { return 1; });
+			y_first_quadrant = y_0.concat(y_first_quadrant, y_1, y_first_quadrant)
 
 
 			return [x_first_quadrant, y_first_quadrant]
 		}
 
-		var circle_points = circle(1000)
-		x = circle_points[0]
-		y = circle_points[1]
+
+
+		// var circle_points = circle(1000)
+		var square = square(1000)
+		x = square[0]
+		y = square[1]
 		draw(x, y)
 
 	</script>
